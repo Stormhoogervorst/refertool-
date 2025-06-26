@@ -6,11 +6,22 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // This is the main serverless function that Netlify will run every time your webpage calls it.
+const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type'
+};
+
 exports.handler = async function(event) {
+    // Allow CORS preflight requests
+    if (event.httpMethod === 'OPTIONS') {
+        return { statusCode: 200, headers, body: 'OK' };
+    }
+
     // A security check: This function should only be triggered by a POST request from your website,
     // not by someone just visiting the function's URL in their browser.
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
+        return { statusCode: 405, headers, body: 'Method Not Allowed' };
     }
 
     // The 'try...catch' block is for error handling. It will "try" to run the code inside.
@@ -23,6 +34,7 @@ exports.handler = async function(event) {
         // A quick check to make sure an email was actually sent.
         if (!email) {
             return { statusCode: 400, body: JSON.stringify({ message: 'Email is required.' }) };
+            return { statusCode: 400, headers, body: JSON.stringify({ message: 'Email is required.' }) };
         }
 
         // --- This is where the email itself is prepared ---
@@ -48,6 +60,7 @@ exports.handler = async function(event) {
         // statusCode 200 means "OK / Success".
         return {
             statusCode: 200,
+            headers,
             body: JSON.stringify({ message: 'Email sent successfully!' })
         };
 
@@ -62,6 +75,7 @@ exports.handler = async function(event) {
         // statusCode 500 means "Internal Server Error".
         return {
             statusCode: 500,
+            headers,
             body: JSON.stringify({ message: 'Failed to send email.' })
         };
     }
