@@ -306,11 +306,11 @@ hr {
     font-size: 1rem;
 }
 .btn-primary {
-    background-color: var(--gradient-start);
+    background: var(--gradient-end);
     color: var(--card-bg);
 }
 .btn-primary:hover {
-    background-color: var(--gradient-end);
+    background: var(--gradient-start);
 }
 .btn-light {
     background-color: var(--card-bg);
@@ -330,6 +330,7 @@ hr {
     gap: 1rem;
     justify-content: center;
     margin-top: 1.4rem;
+    flex-wrap: wrap;
 }
 .btn-share {
     display: flex;
@@ -360,11 +361,11 @@ hr {
     transform: scale(1.04);
 }
 .btn-share.sms {
-    background: var(--gradient-end);
+    background: #3b82f6; /* A modern blue for SMS */
     color: #fff;
 }
 .btn-share.sms:hover {
-    background: var(--gradient-start);
+    background: #2563eb;
     color: #fff;
     transform: scale(1.04);
 }
@@ -482,10 +483,12 @@ hr {
     }
 }
 @media (max-width: 600px) {
-    .section, .card, .vacancy-container { padding: 0.7rem; }
-    h1 { font-size: 1.5rem; }
-    h2 { font-size: 1.1rem; }
-    .modal-content { padding: 1.1rem; }
+    .vacancy-header h1 { font-size: 1.8rem; }
+    .salary { font-size: 1.1rem; }
+    .modal-content { padding: 2rem 1.5rem; }
+    .modal-content h2 { font-size: 1.5rem; }
+    .share-buttons-container { flex-direction: column; }
+    .btn-share { width: 100%; justify-content: center; }
 }
     </style>
 </head>
@@ -497,7 +500,7 @@ hr {
             <header class="vacancy-header">
                 <div class="header-content">
                     <span class="location-tag">Nijmegen</span>
-                    <h1>Business Development Officer</h1>
+                    <h1 id="job-title-header">Business Development Officer</h1>
                     <p class="salary">€ 3.500 - € 5.000 per maand</p>
                 </div>
             </header>
@@ -524,5 +527,105 @@ hr {
                         <li>HBO werk- en denkniveau.</li>
                         <li>Minimaal 3 jaar ervaring in een commerciële buitendienstfunctie.</li>
                         <li>Kennis van de installatietechniek is een sterke pré.</li>
-                        <li>Resultaatgericht, proactief en hebt een passie voor sales
+                        <li>Resultaatgericht, proactief en hebt een passie voor sales.</li>
+                    </ul>
+                </article>
+            </section>
 
+        </main>
+    </div>
+
+    <!-- ===== MODAL START ===== -->
+    <div class="modal-overlay" id="referralModal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModalBtn" aria-label="Sluiten">×</button>
+            <h2 id="modal-title">Deel deze vacature</h2>
+            <p>Ken je de perfecte kandidaat? Draag diegene aan of deel de vacature direct.</p>
+    
+            <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Bedankt voor de aanmelding!'); closeModal();">
+                <div class="form-group">
+                    <label for="candidate-info">Informatie over kandidaat (naam, contact, waarom geschikt)</label>
+                    <textarea id="candidate-info" name="candidate-info" rows="4" placeholder="Bijv. Jan de Vries, jan.devries@email.com, heeft 5 jaar sales ervaring..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 2rem;">Aanmelding versturen</button>
+            </form>
+    
+            <hr style="margin: 0 0 2rem 0; opacity: 0.5;">
+    
+            <h4 style="text-align: center; color: var(--text-medium); font-weight: 500; margin-bottom: 0;">Of deel direct via</h4>
+    
+            <div class="share-buttons-container">
+                <a href="#" target="_blank" rel="noopener noreferrer" class="btn-share whatsapp" id="whatsapp-share-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.8 0-67.6-9.5-97.8-27.2l-6.9-4.1-72.7 19.1L48.6 352l-4.5-7.2c-19.1-30.1-29.2-65.4-29.2-101.9C14.9 134.4 110.3 39.9 224 39.9c58.1 0 112.2 22.5 153.3 63.6 41.2 41.2 63.6 95.2 63.6 153.3 0 113.7-93.5 207.4-207.4 207.4zM190.8 226.4c-3-1.5-17.7-8.8-20.4-9.8-2.7-1-4.7-1.5-6.7 1.5-2 3-7.7 9.8-9.5 11.8-1.7 2-3.5 2.2-6.5.8-3-1.5-12.7-4.7-24.1-14.8-8.9-8.1-14.9-18-16.7-21.2-1.7-3.2-.2-4.9.7-6.5 1-1.5 2.2-3.7 3.2-5.2.9-1.5 1.7-2.7 2.5-4.5.8-1.7.4-3.2-.2-4.7s-6.7-16.1-9.2-22-5-5-6.7-5.2c-1.7-.2-3.5-.2-5.2-.2-1.7 0-4.7.7-7.2 3.7-2.5 3-9.7 9.5-9.7 23s9.7 26.7 11.2 28.7c1.5 2 19.5 29.7 47.5 41.5 7 3 12.5 4.8 16.7 6.2 7.2 2.2 13.7 1.8 18.7.5 5.7-1.5 17.7-7.2 20.2-14.2 2.5-7 .2-13 .2-14.2-.1-1.2-2.5-2-5.2-3.5z"/></svg>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="#" class="btn-share sms" id="sms-share-btn">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><path d="M64 0C28.7 0 0 28.7 0 64V352c0 35.3 28.7 64 64 64h96v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64z"/></svg>
+                    <span>SMS</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- ===== MODAL END ===== -->
+
+    <script>
+        // Get modal elements
+        const modalOverlay = document.getElementById('referralModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const whatsappBtn = document.getElementById('whatsapp-share-btn');
+        const smsBtn = document.getElementById('sms-share-btn');
+        const jobTitleHeader = document.getElementById('job-title-header');
+
+        function openModal() {
+            // Define vacancy details from the page content
+            const jobTitle = jobTitleHeader.textContent.trim();
+            const pageUrl = window.location.href;
+
+            // Create the share message
+            const shareText = `Hoi! Ik zag deze vacature voor een '${jobTitle}' en moest aan jou denken. Misschien is het wat voor jou? Bekijk de details hier: ${pageUrl}`;
+
+            // Encode the message for the URL
+            const encodedText = encodeURIComponent(shareText);
+
+            // Set the href for the share buttons
+            whatsappBtn.href = `https://api.whatsapp.com/send?text=${encodedText}`;
+            // The 'sms:' protocol structure varies slightly. '&body=' is widely supported on mobile.
+            smsBtn.href = `sms:?&body=${encodedText}`; 
+
+            // Display the modal
+            if (modalOverlay) {
+                modalOverlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+
+        function closeModal() {
+            if (modalOverlay) {
+                modalOverlay.style.display = 'none';
+                document.body.style.overflow = ''; // Restore background scrolling
+            }
+        }
+
+        // --- Event Listeners ---
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', closeModal);
+        }
+
+        // Close modal when clicking on the overlay (outside the content)
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', function(event) {
+                if (event.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+        }
+        
+        // Close modal with the 'Escape' key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
