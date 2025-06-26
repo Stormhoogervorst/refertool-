@@ -4,5 +4,8 @@
   "description": "Serverless function to send email via SendGrid",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0"
+  },
+  "scripts": {
+    "test": "node --test"
   }
 }
