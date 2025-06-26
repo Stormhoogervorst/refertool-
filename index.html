@@ -11,447 +11,338 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-/* ------------------- */
-/* --- CSS Variables --- */
-/* ------------------- */
-:root {
-    --gradient-start: #97d045;
-    --gradient-end: #02527d;
-    --tag-bg: #e5e7eb;
-    --tag-text: #4b5569;
-    --bg-color: #f4f4f4;
-    --card-bg: #ffffff;
-    --text-dark: #111827;
-    --text-medium: #4b5569;
-    --text-light: #94a3b8;
-    --border-color: #e2e8f0;
-    --font-family: 'Inter', sans-serif;
-    --shadow-md: 0 4px 8px 0 rgb(0 0 0 / 0.07);
-    --shadow-lg: 0 12px 24px 0 rgb(0 0 0 / 0.09);
-    --border-radius-xl: 16px;
-    --border-radius-lg: 12px;
-    --border-radius-md: 10px;
-    --border-radius-sm: 7px;
-    --footer-bg: #f8fafc;
-}
-/* ------------------- */
-/* --- Base & Reset --- */
-/* ------------------- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-html {
-    scroll-behavior: smooth;
-    background: var(--bg-color);
-}
-body {
-    font-family: var(--font-family);
-    background-color: var(--bg-color);
-    color: var(--text-dark);
-    line-height: 1.6;
-    font-size: 1rem;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-main {
-    flex: 1 0 auto;
-}
-h1, h2, h3, h4 {
-    font-weight: 600;
-    line-height: 1.3;
-}
-h1 { font-size: 2.6rem; letter-spacing: -0.5px; }
-h2 { font-size: 2rem; margin-bottom: 0.75em; }
-h3 { font-size: 1.4rem; }
-h4 { font-size: 1.1rem; }
-p {
-    color: var(--text-medium);
-    font-size: 1.05rem;
-}
-a {
-    color: var(--gradient-end);
-    text-decoration: none;
-    transition: color .2s;
-}
-a:hover, a:focus { color: var(--gradient-start); }
-ul {
-    list-style: none;
-    padding: 0;
-}
-ul li {
-    position: relative;
-    padding-left: 28px;
-    margin-bottom: 0.75rem;
-    color: var(--text-medium);
-}
-ul li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    top: -2px;
-    color: var(--gradient-start);
-    font-weight: 700;
-}
-img {
-    max-width: 100%;
-    display: block;
-    border-radius: var(--border-radius-md);
-}
-button, input, textarea {
-    font-family: inherit;
-}
-hr {
-    border: none;
-    border-top: 1px solid var(--border-color);
-    margin: 2.5rem 0;
-    opacity: .75;
-}
-
-/* ------------------- */
-/* --- Layout --- */
-/* ------------------- */
-.page-wrapper {
-    display: flex;
-    justify-content: center;
-    padding: 5rem 1.5rem 2.5rem 1.5rem;
-    background: var(--bg-color);
-}
-.vacancy-container {
-    width: 100%;
-    max-width: 840px;
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-}
-.section {
-    padding: 3rem 2rem;
-    background: var(--card-bg);
-    border-radius: var(--border-radius-xl);
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--border-color);
-    margin-bottom: 2.5rem;
-}
-
-/* ------------------- */
-/* --- Header --- */
-/* ------------------- */
-.vacancy-header {
-    text-align: left;
-}
-.location-tag {
-    display: inline-block;
-    background-color: var(--tag-bg);
-    color: var(--tag-text);
-    padding: 0.375rem 1rem;
-    border-radius: 99px;
-    font-weight: 500;
-    font-size: 0.875rem;
-    margin-bottom: 1.25rem;
-}
-.vacancy-header h1 {
-    font-size: 2.5rem;
-    color: var(--text-dark);
-    font-weight: 700;
-}
-.salary {
-    font-size: 1.25rem;
-    color: var(--text-medium);
-    font-weight: 500;
-    margin-top: 0.75rem;
-}
-
-/* ------------------- */
-/* --- Referral Card --- */
-/* ------------------- */
-.referral-card {
-    display: flex;
-    align-items: center;
-    gap: 1.4rem;
-    background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-    color: var(--card-bg);
-    border: none;
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md);
-    padding: 2rem 2.5rem; /* Adjusted padding for better balance */
-    margin-bottom: 2.2rem;
-    flex-wrap: wrap;
-}
-.referral-content {
-    flex: 1;
-    min-width: 200px;
-}
-.referral-content h2 {
-    font-size: 1.18rem;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 0.15em;
-}
-.referral-content p {
-    color: #e0e7ff;
-    font-size: 1.02rem;
-    margin-bottom: 0;
-    opacity: 0.94;
-}
-.btn.btn-secondary {
-    background-color: #fff;
-    color: var(--gradient-end);
-    font-weight: 600;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.08);
-    transition: background 0.18s, color 0.18s, transform 0.12s;
-    margin-left: 0.5rem;
-}
-.btn.btn-secondary:hover {
-    background: var(--tag-bg);
-    color: var(--gradient-start);
-    transform: translateY(-2px) scale(1.04);
-}
-
-/* ------------------- */
-/* --- Job Details Card --- */
-/* ------------------- */
-.job-details article:not(:last-child) {
-    margin-bottom: 2.5rem;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid var(--border-color);
-}
-.job-details h3 {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-dark);
-}
-
-/* ------------------- */
-/* --- Contact Card --- */
-/* ------------------- */
-.contact-card {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    padding: 1.5rem 1.3rem;
-    background: var(--card-bg);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--border-color);
-    margin-bottom: 0;
-}
-.consultant-photo {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-    border: 2px solid var(--border-color);
-}
-.contact-details h4 {
-    font-size: 1.02rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 0.2em;
-}
-.contact-details p {
-    color: var(--text-medium);
-    font-size: 0.97rem;
-}
-.btn.btn-tertiary {
-    background: var(--gradient-end);
-    color: #fff;
-    font-weight: 600;
-    border: none;
-    border-radius: var(--border-radius-md);
-    padding: 0.7rem 1.2rem;
-    margin-left: auto;
-    transition: background 0.15s, transform 0.12s;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.10);
-    font-size: 1rem;
-}
-.btn.btn-tertiary:hover {
-    background: var(--gradient-start);
-    color: #fff;
-    transform: translateY(-2px) scale(1.04);
-}
-
-/* ------------------- */
-/* --- Buttons --- */
-/* ------------------- */
-.btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius-md);
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-    white-space: nowrap;
-    font-family: inherit;
-    font-size: 1rem;
-}
-.btn-primary {
-    background-color: var(--gradient-start);
-    color: var(--card-bg);
-}
-.btn-primary:hover {
-    background-color: var(--gradient-end);
-}
-
-/* ------------------- */
-/* --- Share Buttons (modal) --- */
-/* ------------------- */
-.share-buttons-container {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 1.4rem;
-    flex-wrap: wrap;
-}
-.btn-share {
-    display: flex;
-    align-items: center;
-    gap: 0.6em;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.75rem 1.25rem;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    border: none;
-    box-shadow: var(--shadow-md);
-    transition: background 0.17s, color 0.17s, transform 0.13s;
-}
-.btn-share svg {
-    width: 22px;
-    height: 22px;
-}
-.btn-share.whatsapp {
-    background: #25d366;
-    color: #fff;
-}
-.btn-share.whatsapp:hover {
-    background: #1ab955;
-    color: #fff;
-    transform: scale(1.04);
-}
-.btn-share.sms {
-    background: #3b82f6; /* A modern blue for SMS */
-    color: #fff;
-}
-.btn-share.sms:hover {
-    background: #2563eb;
-    color: #fff;
-    transform: scale(1.04);
-}
-
-/* ------------------- */
-/* --- Modal --- */
-/* ------------------- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(30, 41, 59, 0.6);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(4px);
-    overflow-y: auto;
-    padding: 2rem;
-}
-.modal-content {
-    background-color: var(--card-bg);
-    padding: 2.5rem;
-    border-radius: var(--border-radius-xl);
-    width: 100%;
-    max-width: 550px;
-    position: relative;
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-    max-height: 90vh;
-    overflow-y: auto;
-}
-.modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1.25rem;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: var(--text-medium);
-    transition: color 0.2s;
-    line-height: 1;
-}
-.modal-close:hover {
-    color: var(--text-dark);
-}
-.modal-content h2 {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
-    text-align: center;
-}
-.modal-content p {
-    margin-bottom: 1.5rem;
-    color: var(--text-medium);
-    text-align: center;
-}
-.form-group {
-    margin-bottom: 1.5rem;
-}
-.form-group label {
-    display: block;
-    margin-bottom: 0.625rem;
-    font-weight: 500;
-    font-size: 0.875rem;
-}
-.form-group textarea {
-    width: 100%;
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    padding: 0.875rem 1.125rem;
-    font-size: 1rem;
-    color: var(--text-dark);
-    font-family: var(--font-family);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    resize: vertical;
-    min-height: 80px;
-}
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--gradient-start);
-    box-shadow: 0 0 0 3px #e8fad5;
-}
-
-/* ------------------- */
-/* --- Responsive --- */
-/* ------------------- */
-@media (max-width: 800px) {
-    .page-wrapper { padding: 2.5rem 1rem; }
-    .referral-card,
-    .contact-card {
+    /* --- PASTE ALL OF YOUR EXISTING CSS CODE HERE --- */
+    /* ------------------- */
+    /* --- CSS Variables --- */
+    /* ------------------- */
+    :root {
+        --gradient-start: #97d045;
+        --gradient-end: #02527d;
+        --tag-bg: #e5e7eb;
+        --tag-text: #4b5569;
+        --bg-color: #f4f4f4;
+        --card-bg: #ffffff;
+        --text-dark: #111827;
+        --text-medium: #4b5569;
+        --text-light: #94a3b8;
+        --border-color: #e2e8f0;
+        --font-family: 'Inter', sans-serif;
+        --shadow-md: 0 4px 8px 0 rgb(0 0 0 / 0.07);
+        --shadow-lg: 0 12px 24px 0 rgb(0 0 0 / 0.09);
+        --border-radius-xl: 16px;
+        --border-radius-lg: 12px;
+        --border-radius-md: 10px;
+        --border-radius-sm: 7px;
+    }
+    /* --- Base & Reset --- */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    html {
+        scroll-behavior: smooth;
+        background: var(--bg-color);
+    }
+    body {
+        font-family: var(--font-family);
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        line-height: 1.6;
+        font-size: 1rem;
+        min-height: 100vh;
+        display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-        text-align: left;
     }
-    .referral-card .btn.btn-secondary,
-    .contact-card .btn.btn-tertiary {
-        margin-left: 0;
+    main { flex: 1 0 auto; }
+    h1, h2, h3, h4 {
+        font-weight: 600;
+        line-height: 1.3;
+    }
+    h1 { font-size: 2.6rem; letter-spacing: -0.5px; }
+    h2 { font-size: 2rem; margin-bottom: 0.75em; }
+    h3 { font-size: 1.4rem; }
+    p {
+        color: var(--text-medium);
+        font-size: 1.05rem;
+    }
+    a {
+        color: var(--gradient-end);
+        text-decoration: none;
+        transition: color .2s;
+    }
+    a:hover, a:focus { color: var(--gradient-start); }
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    ul li {
+        position: relative;
+        padding-left: 28px;
+        margin-bottom: 0.75rem;
+        color: var(--text-medium);
+    }
+    ul li::before {
+        content: '—';
+        position: absolute;
+        left: 0;
+        top: -2px;
+        color: var(--gradient-start);
+        font-weight: 700;
+    }
+    button, input, textarea { font-family: inherit; }
+    hr {
+        border: none;
+        border-top: 1px solid var(--border-color);
+        margin: 2rem 0;
+        opacity: .75;
+    }
+    /* --- Layout --- */
+    .page-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 5rem 1.5rem 2.5rem 1.5rem;
+        background: var(--bg-color);
+    }
+    .vacancy-container {
         width: 100%;
+        max-width: 840px;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
     }
-}
-@media (max-width: 600px) {
-    .vacancy-header h1 { font-size: 1.8rem; }
-    .salary { font-size: 1.1rem; }
-    .modal-content { padding: 2.5rem 1.5rem; }
-    .modal-content h2 { font-size: 1.5rem; }
-    .share-buttons-container { flex-direction: column; }
-    .btn-share { width: 100%; justify-content: center; }
-}
+    /* --- Header --- */
+    .vacancy-header { text-align: left; }
+    .location-tag {
+        display: inline-block;
+        background-color: var(--tag-bg);
+        color: var(--tag-text);
+        padding: 0.375rem 1rem;
+        border-radius: 99px;
+        font-weight: 500;
+        font-size: 0.875rem;
+        margin-bottom: 1.25rem;
+    }
+    .vacancy-header h1 {
+        font-size: 2.5rem;
+        color: var(--text-dark);
+        font-weight: 700;
+    }
+    .salary {
+        font-size: 1.25rem;
+        color: var(--text-medium);
+        font-weight: 500;
+        margin-top: 0.75rem;
+    }
+    /* --- Referral Card --- */
+    .referral-card {
+        display: flex;
+        align-items: center;
+        gap: 1.4rem;
+        background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+        color: var(--card-bg);
+        border: none;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-md);
+        padding: 2rem 2.5rem;
+        margin-bottom: 2.2rem;
+        flex-wrap: wrap;
+    }
+    .referral-content {
+        flex: 1;
+        min-width: 200px;
+    }
+    .referral-content h2 {
+        font-size: 1.18rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 0.15em;
+    }
+    .referral-content p {
+        color: #e0e7ff;
+        font-size: 1.02rem;
+        margin-bottom: 0;
+        opacity: 0.94;
+    }
+    .btn.btn-secondary {
+        background-color: #fff;
+        color: var(--gradient-end);
+        font-weight: 600;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.08);
+        transition: background 0.18s, color 0.18s, transform 0.12s;
+        margin-left: 0.5rem;
+    }
+    .btn.btn-secondary:hover {
+        background: var(--tag-bg);
+        color: var(--gradient-start);
+        transform: translateY(-2px) scale(1.04);
+    }
+    /* --- Job Details Card --- */
+    .card.job-details {
+        padding: 3rem 2rem;
+        background: var(--card-bg);
+        border-radius: var(--border-radius-xl);
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--border-color);
+        margin-bottom: 2.5rem;
+    }
+    .job-details article:not(:last-child) {
+        margin-bottom: 2.5rem;
+        padding-bottom: 2.5rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .job-details h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+        color: var(--text-dark);
+    }
+    /* --- Share Buttons (modal) --- */
+    .share-buttons-container {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1.4rem;
+        flex-wrap: wrap;
+    }
+    .btn-share {
+        display: flex;
+        align-items: center;
+        gap: 0.6em;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: var(--border-radius-md);
+        text-decoration: none;
+        border: none;
+        box-shadow: var(--shadow-md);
+        transition: all 0.2s ease-in-out;
+    }
+    .btn-share.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+    .btn-share svg {
+        width: 22px;
+        height: 22px;
+    }
+    .btn-share.whatsapp {
+        background: #25d366;
+        color: #fff;
+    }
+    .btn-share.whatsapp:not(.disabled):hover {
+        background: #1ab955;
+        transform: scale(1.04);
+    }
+    .btn-share.sms {
+        background: #3b82f6;
+        color: #fff;
+    }
+    .btn-share.sms:not(.disabled):hover {
+        background: #2563eb;
+        transform: scale(1.04);
+    }
+    /* --- Modal --- */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(30, 41, 59, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+        overflow-y: auto;
+        padding: 2rem;
+    }
+    .modal-content {
+        background-color: var(--card-bg);
+        padding: 2.5rem;
+        border-radius: var(--border-radius-xl);
+        width: 100%;
+        max-width: 550px;
+        position: relative;
+        box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1.25rem;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        color: var(--text-medium);
+        transition: color 0.2s;
+        line-height: 1;
+    }
+    .modal-close:hover { color: var(--text-dark); }
+    .modal-content h2 {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+    .modal-content p {
+        margin-bottom: 2rem;
+        color: var(--text-medium);
+        text-align: center;
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label {
+        display: block;
+        margin-bottom: 0.625rem;
+        font-weight: 500;
+        font-size: 0.875rem;
+    }
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        background-color: var(--bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-md);
+        padding: 0.875rem 1.125rem;
+        font-size: 1rem;
+        color: var(--text-dark);
+        font-family: var(--font-family);
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--gradient-start);
+        box-shadow: 0 0 0 3px #e8fad5;
+    }
+    /* --- Responsive --- */
+    @media (max-width: 800px) {
+        .page-wrapper { padding: 2.5rem 1rem; }
+        .referral-card {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+            text-align: left;
+        }
+        .referral-card .btn.btn-secondary {
+            margin-left: 0;
+            width: 100%;
+        }
+    }
+    @media (max-width: 600px) {
+        .vacancy-header h1 { font-size: 1.8rem; }
+        .salary { font-size: 1.1rem; }
+        .modal-content { padding: 2.5rem 1.5rem; }
+        .modal-content h2 { font-size: 1.5rem; }
+        .share-buttons-container { flex-direction: column; }
+        .btn-share { width: 100%; justify-content: center; }
+    }
     </style>
 </head>
 <body>
@@ -467,8 +358,7 @@ hr {
                 </div>
             </header>
 
-            <!-- ICON WRAPPER REMOVED FROM HERE -->
-            <section class="card referral-card">
+            <section class="referral-card">
                 <div class="referral-content">
                     <h2>Ken jij de perfecte kandidaat?</h2>
                     <p>Draag een professional aan en verdien een bonus van <strong>€1000</strong> bij een succesvolle plaatsing!</p>
@@ -498,7 +388,12 @@ hr {
         <div class="modal-content">
             <button class="modal-close">×</button>
             <h2>Nodig iemand uit</h2>
-            <p>Voeg een persoonlijk bericht toe en deel de uitnodiging. Jouw unieke code wordt automatisch meegestuurd.</p>
+            <p>Vul je e-mailadres in om de deelknoppen te activeren. We sturen je direct een bevestiging per e-mail.</p>
+            
+            <div class="form-group">
+                <label for="referrerEmail">Jouw e-mailadres (verplicht)</label>
+                <input type="email" id="referrerEmail" name="referrerEmail" placeholder="jouw.email@voorbeeld.com" required>
+            </div>
             
             <div class="form-group">
                 <label for="personalMessage">Voeg een persoonlijk bericht toe (optioneel)</label>
@@ -506,16 +401,15 @@ hr {
             </div>
             
             <div class="share-buttons-container">
-                <a href="#" id="whatsapp-share" class="btn-share whatsapp" target="_blank">
+                <a href="#" id="whatsapp-share" class="btn-share whatsapp disabled">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M16.6 14.2c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6s0-.3.1-.4.2-.2.4-.4c.1-.1.2-.3.3-.4.1-.2.1-.3 0-.4-.1-.1-.6-1.5-.8-2.1-.2-.5-.4-.5-.5-.5h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2 1 2.4c.1.1 1.5 2.3 3.7 3.2.5.2.9.4 1.2.5.5.2 1 .1 1.3-.1.4-.2.6-.8.8-1s.2-1.1.1-1.2c-.1-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" /></svg>
                     <span>Deel via WhatsApp</span>
                 </a>
-                <a href="#" id="sms-share" class="btn-share sms" target="_blank">
+                <a href="#" id="sms-share" class="btn-share sms disabled">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512" width="24" height="24"><path d="M64 0C28.7 0 0 28.7 0 64V352c0 35.3 28.7 64 64 64h96v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64z"/></svg>
                     <span>Deel via SMS</span>
                 </a>
             </div>
-
         </div>
     </div>
 
@@ -524,74 +418,93 @@ hr {
         const personalMessageEl = document.getElementById('personalMessage');
         const whatsappShareBtn = document.getElementById('whatsapp-share');
         const smsShareBtn = document.getElementById('sms-share');
+        const referrerEmailEl = document.getElementById('referrerEmail');
         
+        const apiEndpointUrl = '/.netlify/functions/send-email'; 
+
         let personalCode = '';
         let referralUrl = '';
 
         function generateReferralInfo() {
-            // Generate a random 6-character alphanumeric code
             personalCode = 'REF' + Math.random().toString(36).substr(2, 6).toUpperCase();
-            
-            // Set the specific referral URL as per the example process
             referralUrl = 'https://stormhoogervorst.github.io/referapply/';
         }
-
+        
         function updateShareLinks() {
             const personalMsg = personalMessageEl.value.trim();
-            // Get the vacancy title dynamically from the page header
             const vacancyTitle = document.querySelector('.vacancy-header h1').textContent.trim();
-            
-            // Use the personal message if provided, otherwise use a default message
             let baseText;
             if (personalMsg) {
                 baseText = `${personalMsg}\n\nBekijk de vacature hier:`;
             } else {
                 baseText = `Hoi! Ik zag deze vacature voor een '${vacancyTitle}' en moest aan je denken. Misschien is het iets voor jou?\n\nBekijk de vacature hier:`;
             }
-
-            // Construct the full message including the URL and personal code
             const fullShareText = `${baseText} ${referralUrl}\n\nMijn persoonlijke code is: ${personalCode}`;
-            
-            // Update WhatsApp Link
             whatsappShareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(fullShareText)}`;
-            
-            // Update SMS Link
             smsShareBtn.href = `sms:?&body=${encodeURIComponent(fullShareText)}`;
         }
         
         function openModal() {
             generateReferralInfo();
             updateShareLinks();
+            validateAndEnableButtons(); 
             modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             modal.style.display = 'none';
-            document.body.style.overflow = ''; // Restore background scrolling
+            document.body.style.overflow = '';
+        }
+
+        function validateAndEnableButtons() {
+            const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(referrerEmailEl.value);
+            if (emailIsValid) {
+                whatsappShareBtn.classList.remove('disabled');
+                smsShareBtn.classList.remove('disabled');
+            } else {
+                whatsappShareBtn.classList.add('disabled');
+                smsShareBtn.classList.add('disabled');
+            }
+        }
+
+        async function handleShareAndEmail(event) {
+            event.preventDefault();
+            const shareUrl = event.currentTarget.href;
+            const userEmail = referrerEmailEl.value;
+
+            whatsappShareBtn.classList.add('disabled');
+            smsShareBtn.classList.add('disabled');
+
+            try {
+                const response = await fetch(apiEndpointUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server responded with status: ${response.status}`);
+                }
+                
+                console.log('Confirmation email request sent successfully.');
+                window.open(shareUrl, '_blank');
+                setTimeout(closeModal, 500);
+
+            } catch (error) {
+                console.error('Failed to send confirmation email:', error);
+                alert('Er is iets misgegaan bij het versturen van de bevestigingsmail. Probeer het opnieuw.');
+                validateAndEnableButtons(); 
+            }
         }
         
-        // --- Event Listeners ---
-
-        // Update links in real-time as the user types in the textarea
         personalMessageEl.addEventListener('input', updateShareLinks);
-
-        // Close modal when clicking the overlay (background)
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeModal();
-            }
-        });
-
-        // Close modal when clicking the 'x' button
+        referrerEmailEl.addEventListener('input', validateAndEnableButtons);
+        whatsappShareBtn.addEventListener('click', handleShareAndEmail);
+        smsShareBtn.addEventListener('click', handleShareAndEmail);
+        modal.addEventListener('click', (event) => { if (event.target === modal) closeModal(); });
         document.querySelector('.modal-close').addEventListener('click', closeModal);
-        
-        // Close modal with the 'Escape' key
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                closeModal();
-            }
-        });
+        document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
     </script>
 </body>
 </html>
