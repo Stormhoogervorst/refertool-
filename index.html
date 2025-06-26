@@ -175,24 +175,9 @@ hr {
     border: none;
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-md);
-    padding: 2rem 2rem;
+    padding: 2rem 2.5rem; /* Adjusted padding for better balance */
     margin-bottom: 2.2rem;
     flex-wrap: wrap;
-}
-.referral-icon-wrapper {
-    background: rgba(255,255,255,0.12);
-    border-radius: var(--border-radius-md);
-    width: 58px;
-    height: 58px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-}
-.referral-icon-wrapper svg {
-    width: 32px;
-    height: 32px;
-    color: var(--card-bg);
 }
 .referral-content {
     flex: 1;
@@ -482,10 +467,8 @@ hr {
                 </div>
             </header>
 
+            <!-- ICON WRAPPER REMOVED FROM HERE -->
             <section class="card referral-card">
-                <div class="referral-icon-wrapper">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a2.25 2.25 0 01-2.25 2.25H5.25a2.25 2.25 0 01-2.25-2.25v-8.25M12 4.875A2.625 2.625 0 1014.625 7.5H9.375A2.625 2.625 0 1012 4.875zM21 11.25H3" /></svg>
-                </div>
                 <div class="referral-content">
                     <h2>Ken jij de perfecte kandidaat?</h2>
                     <p>Draag een professional aan en verdien een bonus van <strong>€1000</strong> bij een succesvolle plaatsing!</p>
@@ -511,7 +494,6 @@ hr {
         </main>
     </div>
 
-    <!-- ===== NEW MODAL (from second example) ===== -->
     <div id="referralModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close">×</button>
@@ -537,7 +519,6 @@ hr {
         </div>
     </div>
 
-    <!-- ===== NEW SCRIPT (from second example) ===== -->
     <script>
         const modal = document.getElementById('referralModal');
         const personalMessageEl = document.getElementById('personalMessage');
