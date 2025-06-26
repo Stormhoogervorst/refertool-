@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Development Officer</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <main class="vacancy-container">
+
+            <header class="vacancy-header">
+                <div class="header-content">
+                    <span class="location-tag">Nijmegen</span>
+                    <h1>Business Development Officer</h1>
+                    <p class="salary">€ 3.500 - € 5.000 per maand</p>
+                </div>
+            </header>
+
+            <section class="card referral-card">
+                <div class="referral-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a2.25 2.25 0 01-2.25 2.25H5.25a2.25 2.25 0 01-2.25-2.25v-8.25M12 4.875A2.625 2.625 0 1014.625 7.5H9.375A2.625 2.625 0 1012 4.875zM21 11.25H3" /></svg>
+                </div>
+                <div class="referral-content">
+                    <h2>Ken jij de perfecte kandidaat?</h2>
+                    <p>Draag een professional aan en verdien een bonus van <strong>€1000</strong> bij een succesvolle plaatsing!</p>
+                </div>
+                <button class="btn btn-secondary" onclick="openModal()">Iemand aandragen</button>
+            </section>
+
+            <section class="card job-details">
+                <article>
+                    <h3>Over de functie</h3>
+                    <p>Als Business Development Officer ben je verantwoordelijk voor het creëren van new business en het uitbouwen van het klantennetwerk binnen de installatietechniek. Je bent een kei in het benaderen van prospects en het overtuigen van de meerwaarde van onze dienstverlening. Je signaleert kansen, trends en ontwikkelingen in de markt en vertaalt deze naar concrete acties.</p>
+                </article>
+                <article>
+                    <h3>Wat wij zoeken</h3>
+                    <ul>
+                        <li>HBO werk- en denkniveau.</li>
+                        <li>Minimaal 3 jaar ervaring in een commerciële buitendienstfunctie.</li>
+                        <li>Kennis van de installatietechniek is een sterke pré.</li>
+                        <li>Resultaatgericht, proactief en hebt een passie voor sales.</li>
+                        <li>Woonachtig in de regio Nijmegen en in het bezit van rijbewijs B.</li>
+                    </ul>
+                </article>
+                <article>
+                    <h3>Wat wij bieden</h3>
+                    <ul>
+                        <li>Een salaris tussen € 3.500,- en € 5.000,- bruto per maand.</li>
+                        <li>Aantrekkelijke bonusregeling, auto, laptop en telefoon.</li>
+                        <li>25 vakantiedagen en volop ontwikkelingsmogelijkheden.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <aside class="card contact-card">
+                <img src="https://www.nrg-office.nl/media/1109/roel-koper-nrg-office.jpg" alt="Roel Koper" class="consultant-photo" onerror="this.style.display='none'; this.parentElement.style.display='none'">
+                <div class="contact-details">
+                    <h4>Vragen over deze vacature?</h4>
+                    <p>Roel Koper staat je graag te woord.</p>
+                </div>
+                <a href="tel:0612345678" class="btn btn-tertiary">Neem contact op</a>
+            </aside>
+        </main>
+    </div>
+
+
+    <div id="referralModal" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2>Nodig iemand uit</h2>
+            <p>Voeg een persoonlijk bericht toe en deel de uitnodiging met jouw netwerk. Jouw unieke code wordt automatisch meegestuurd.</p>
+            
+            <div class="form-group">
+                <label for="personalMessage">Voeg een persoonlijk bericht toe (optioneel)</label>
+                <textarea id="personalMessage" rows="3" placeholder="Ik zag deze vacature en moest aan je denken..."></textarea>
+            </div>
+            
+            <div class="share-buttons-container">
+                <a href="#" id="whatsapp-share" class="btn-share whatsapp" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 14.2c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6s0-.3.1-.4.2-.2.4-.4c.1-.1.2-.3.3-.4.1-.2.1-.3 0-.4-.1-.1-.6-1.5-.8-2.1-.2-.5-.4-.5-.5-.5h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2 1 2.4c.1.1 1.5 2.3 3.7 3.2.5.2.9.4 1.2.5.5.2 1 .1 1.3-.1.4-.2.6-.8.8-1s.2-1.1.1-1.2c-.1-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" /></svg>
+                    <span>Deel via WhatsApp</span>
+                </a>
+                <a href="#" id="sms-share" class="btn-share sms" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                    <span>Deel via SMS</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('referralModal');
+        const personalMessageEl = document.getElementById('personalMessage');
+        const whatsappShareBtn = document.getElementById('whatsapp-share');
+        const smsShareBtn = document.getElementById('sms-share');
+        
+        let personalCode = '';
+        let referralUrl = '';
+
+        function generateReferralInfo() {
+            personalCode = 'REF' + Math.random().toString(36).substr(2, 6).toUpperCase();
+            
+            // MODIFICATION: Set the referralUrl to the specified static link.
+            referralUrl = 'https://stormhoogervorst.github.io/referapply/';
+        }
+
+        function updateShareLinks() {
+            const personalMsg = personalMessageEl.value.trim();
+            const vacancyTitle = "Business Development Officer";
+            
+            let baseText = `Hoi! Ik zag deze vacature voor ${vacancyTitle} en moest aan je denken. Misschien is het iets voor jou?`;
+            if (personalMsg) {
+                baseText = `${personalMsg}\n\nBekijk de vacature hier:`;
+            } else {
+                baseText += `\n\nBekijk de vacature hier:`;
+            }
+
+            const fullShareText = `${baseText} ${referralUrl}\n\nMijn persoonlijke code is: ${personalCode}`;
+            
+            // Update WhatsApp Link
+            whatsappShareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(fullShareText)}`;
+            
+            // Update SMS Link
+            smsShareBtn.href = `sms:?&body=${encodeURIComponent(fullShareText)}`;
+        }
+        
+        function openModal() {
+            generateReferralInfo();
+            updateShareLinks();
+            modal.style.display = 'flex';
+        }
+
+        function closeModal(event) {
+            // This condition ensures the modal only closes when the overlay is clicked, not the content inside.
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Update links in real-time as user types
+        personalMessageEl.addEventListener('input', updateShareLinks);
+
+        // Attach close functionality to the overlay and the close button
+        modal.addEventListener('click', closeModal);
+        document.querySelector('.modal-close').addEventListener('click', () => modal.style.display = 'none');
+    </script>
+
+</body>
+</html>
