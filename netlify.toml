@@ -1,2 +1,11 @@
+# Netlify configuration file
+
 [build]
-  functions = "netlify/functions/"
+  # This command is optional, but often used for building assets
+  command = "echo 'No build command specified'"
+  # Directory where your site's files are located
+  publish = "/"
+
+[functions]
+  # Directory for serverless functions
+  directory = "netlify/functions/"
