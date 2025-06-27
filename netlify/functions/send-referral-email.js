@@ -1,82 +1,68 @@
-// This line imports the official SendGrid mail library, which is a toolset for sending email.
+// Import the SendGrid mail service
 const sgMail = require('@sendgrid/mail');
 
-// This line tells the SendGrid library to use your secret API key.
-// It securely retrieves the key from Netlify's environment variables, so it's never exposed in your public code.
+// Set the SendGrid API key from environment variables
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const fromEmail = process.env.FROM_EMAIL;
 
-// This is the main serverless function that Netlify will run every time your webpage calls it.
-const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type'
-};
+exports.handler = async (event, context) => {
+  // Only allow POST requests
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
+  }
 
-exports.handler = async function(event) {
-    // Allow CORS preflight requests
-    if (event.httpMethod === 'OPTIONS') {
-        return { statusCode: 200, headers, body: 'OK' };
+  try {
+    const { email } = JSON.parse(event.body);
+
+    if (!email) {
+      return { statusCode: 400, body: 'Email is required.' };
     }
 
-    // A security check: This function should only be triggered by a POST request from your website,
-    // not by someone just visiting the function's URL in their browser.
-    if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method Not Allowed' };
-        return { statusCode: 405, headers, body: 'Method Not Allowed' };
+    // --- Generate a unique referral code ---
+    const referralCode = 'REF' + Math.random().toString(36).substr(2, 6).toUpperCase();
+    
+    // --- Construct the referral link ---
+    // IMPORTANT: Replace this with your actual live site URL
+    const siteUrl = 'https://your-live-site.netlify.app'; 
+    const referralLink = `${siteUrl}?ref=${referralCode}`;
+
+    // --- Email content ---
+    const msg = {
+      to: email, // The email address entered by the referrer
+      from: fromEmail, // Your verified sender email in SendGrid
+      subject: 'Jouw persoonlijke deellink voor de vacature',
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+          <h2>Hoi,</h2>
+          <p>Bedankt voor je interesse in het aandragen van een kandidaat voor de functie van <strong>Business Development Officer</strong>.</p>
+          <p>Hier is jouw unieke link die je kunt delen met je netwerk:</p>
+          <p style="background-color: #f4f4f4; padding: 15px; border-radius: 8px;">
+            <a href="${referralLink}" style="font-size: 16px; color: #435776;">${referralLink}</a>
+          </p>
+          <p>Wanneer een kandidaat via deze link solliciteert en wordt aangenomen, kom jij in aanmerking voor de bonus van €1000.</p>
+          <p>Met vriendelijke groet,<br>Het Team</p>
+        </div>
+      `,
+    };
+
+    // --- Send the email ---
+    await sgMail.send(msg);
+
+    // --- Return a success response ---
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Email sent successfully!' }),
+    };
+
+  } catch (error) {
+    console.error('Error sending email:', error);
+    // It's good practice to check for more specific errors from SendGrid if possible
+    if (error.response) {
+      console.error(error.response.body);
     }
-
-    // The 'try...catch' block is for error handling. It will "try" to run the code inside.
-    // If anything fails, it will "catch" the error and handle it gracefully.
-    try {
-        // The data sent from your website (the user's email) is in 'event.body'.
-        // This line parses that data and extracts the email address.
-        const { email } = JSON.parse(event.body);
-
-        // A quick check to make sure an email was actually sent.
-        if (!email) {
-            return { statusCode: 400, body: JSON.stringify({ message: 'Email is required.' }) };
-            return { statusCode: 400, headers, body: JSON.stringify({ message: 'Email is required.' }) };
-        }
-
-        // --- This is where the email itself is prepared ---
-        const msg = {
-            to: email, // The recipient: The email address the user entered in the form.
-            
-            // The sender: The email address that the email will appear to come from.
-            // This also securely retrieves your verified "from" email from Netlify's environment variables.
-            from: process.env.SENDGRID_FROM_EMAIL, 
-            
-            subject: 'Bedankt voor de samenwerking!',
-            
-            // The main body of the email. The '\n' characters create new lines.
-            text: "Namens het team van Kwh People willen we je super bedanken voor het meedenken in onze zoektocht naar nieuw talent. Je hulp bij het vinden van geschikte kandidaten waarderen we enorm!\n\nWe houden jullie natuurlijk op de hoogte van de updates rondom de kandidaten die jullie hebben voorgedragen. Zodra er nieuws is, hoor je van ons.\n\nNogmaals bedankt en tot snel!\n\nMet vriendelijke groet,\n\nJoris van Nieuwenhuijze"
-        };
-
-        // --- This is the command that actually sends the email ---
-        // It tells the SendGrid library to send the message we just prepared.
-        // The 'await' keyword makes the function pause and wait until SendGrid confirms the email is sent.
-        await sgMail.send(msg);
-
-        // If the line above was successful, the function sends a success message back to your website.
-        // statusCode 200 means "OK / Success".
-        return {
-            statusCode: 200,
-            headers,
-            body: JSON.stringify({ message: 'Email sent successfully!' })
-        };
-
-    } catch (error) {
-        // If any part of the 'try' block failed, the code jumps here.
-        console.error('Error sending email:', error); // This logs the detailed error in your Netlify function log for debugging.
-        if (error.response) {
-          console.error(error.response.body) // If SendGrid provides specific errors, log those too.
-        }
-
-        // The function sends a failure message back to your website.
-        // statusCode 500 means "Internal Server Error".
-        return {
-            statusCode: 500,
-            headers,
-            body: JSON.stringify({ message: 'Failed to send email.' })
-        };
-    }
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Failed to send email.' }),
+    };
+  }
 };
