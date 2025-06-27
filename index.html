@@ -67,86 +67,128 @@
     </div>
 
 
-    <!-- NEW Referral Modal -->
+    <!-- Referral Modal -->
     <div id="referralModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <h2>Draag iemand aan</h2>
-            <p>Vul je e-mailadres in voor updates, schrijf een persoonlijk bericht en deel direct.</p>
-            
-            <form id="referralForm" class="application-form">
-                <div class="form-group">
-                    <label for="referrerEmail">Jouw e-mailadres (voor updates)</label>
-                    <input type="email" id="referrerEmail" placeholder="jouw.email@example.com" required>
+            <button class="modal-close">&times;</button>
+            <div id="modal-step-1">
+                <h2>Ontvang jouw unieke deellink</h2>
+                <p>Vul je e-mailadres in. We sturen je een link die je kunt delen met je netwerk. Jouw persoonlijke code wordt automatisch bijgehouden.</p>
+                <form id="referralForm" class="application-form">
+                    <div class="form-group">
+                        <label for="referrerEmail">Jouw e-mailadres</label>
+                        <input type="email" id="referrerEmail" placeholder="jouw.email@example.com" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit-btn">Verstuur deellink</button>
+                </form>
+            </div>
+            <div id="modal-step-2" style="display: none;">
+                <h2>Check je inbox!</h2>
+                <p>We hebben een e-mail gestuurd naar <strong id="sentEmailAddress"></strong> met daarin jouw unieke link om te delen.</p>
+                <div class="success-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
-                <div class="form-group">
-                    <label for="personalMessage">Persoonlijk bericht <span class="optional-tag">(Optioneel)</span></label>
-                    <textarea id="personalMessage" rows="3" placeholder="Ik zag deze vacature en moest aan je denken..."></textarea>
-                </div>
-                
-                <div class="share-buttons-container">
-                     <a href="#" id="whatsapp-share" class="btn-share whatsapp" target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 14.2c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6s0-.3.1-.4.2-.2.4-.4c.1-.1.2-.3.3-.4.1-.2.1-.3 0-.4-.1-.1-.6-1.5-.8-2.1-.2-.5-.4-.5-.5-.5h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2 1 2.4c.1.1 1.5 2.3 3.7 3.2.5.2.9.4 1.2.5.5.2 1 .1 1.3-.1.4-.2.6-.8.8-1s.2-1.1.1-1.2c-.1-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" /></svg>
-                        <span>Deel via WhatsApp</span>
-                    </a>
-                     <a href="#" id="sms-share" class="btn-share sms" target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
-                        <span>Deel via SMS</span>
-                    </a>
-                </div>
-            </form>
+            </div>
+             <div id="modal-error" style="display: none;">
+                <h2>Er ging iets mis</h2>
+                <p>De e-mail kon niet worden verstuurd. Probeer het later opnieuw.</p>
+            </div>
         </div>
     </div>
 
     <script>
         const modal = document.getElementById('referralModal');
+        const referralForm = document.getElementById('referralForm');
         const referrerEmailInput = document.getElementById('referrerEmail');
-        const personalMessageEl = document.getElementById('personalMessage');
-        const whatsappShareBtn = document.getElementById('whatsapp-share');
-        const smsShareBtn = document.getElementById('sms-share');
-        
-        let personalCode = '';
+        const modalStep1 = document.getElementById('modal-step-1');
+        const modalStep2 = document.getElementById('modal-step-2');
+        const modalError = document.getElementById('modal-error');
+        const sentEmailAddressEl = document.getElementById('sentEmailAddress');
+        const closeButton = document.querySelector('.modal-close');
 
-        function updateShareLinks() {
-            const personalMsg = personalMessageEl.value.trim();
-            const vacancyTitle = "Business Development Officer";
-            const applicationUrl = "https://stormhoogervorst.github.io/referapply/";
-            
-            let baseText = `Hoi! Ik zag deze vacature voor een ${vacancyTitle} en moest aan je denken.`;
-            
-            // Add personal message if it exists
-            if (personalMsg) {
-                baseText = personalMsg;
-            }
-
-            const fullShareText = `${baseText}\n\nSolliciteer hier: ${applicationUrl}\n\nPS: Gebruik mijn persoonlijke code als je solliciteert: ${personalCode}`;
-            
-            whatsappShareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(fullShareText)}`;
-            smsShareBtn.href = `sms:?&body=${encodeURIComponent(fullShareText)}`;
-        }
-        
         function openModal() {
-            // Generate a new personal code every time the modal opens
-            personalCode = 'REF' + Math.random().toString(36).substr(2, 6).toUpperCase();
-            // Reset the message field
-            personalMessageEl.value = '';
-            // Update the links with the new code
-            updateShareLinks();
-            // Show the modal
+            // Reset modal to initial state
+            modalStep1.style.display = 'block';
+            modalStep2.style.display = 'none';
+            modalError.style.display = 'none';
+            referrerEmailInput.value = '';
             modal.style.display = 'flex';
         }
+        
+        function closeModal() {
+            modal.style.display = 'none';
+        }
 
-        function closeModal(event) {
-            if (event.target === modal || event.target.classList.contains('modal-close')) {
-                 modal.style.display = 'none';
-            }
+        // Add event listeners when the script loads
+        if(closeButton) {
+            closeButton.addEventListener('click', closeModal);
+        }
+        if(modal) {
+            modal.addEventListener('click', (event) => {
+                // This condition checks if the click is on the overlay itself
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
         }
         
-        // Update links in real-time as user types their message
-        personalMessageEl.addEventListener('input', updateShareLinks);
-        
-        document.querySelector('.modal-close').addEventListener('click', () => modal.style.display = 'none');
+        // Handle form submission
+        if(referralForm) {
+            referralForm.addEventListener('submit', async (event) => {
+                event.preventDefault(); // This is crucial
+                console.log('Form submitted. Preparing to send fetch request...');
+
+                const email = referrerEmailInput.value;
+                const submitButton = event.target.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Bezig...';
+
+                try {
+                    console.log(`Attempting to call Netlify function for email: ${email}`);
+                    const response = await fetch('/.netlify/functions/send-referral-email', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email }),
+                    });
+
+                    console.log('Fetch response received:', response);
+
+                    if (response.ok) {
+                        console.log('Function call successful. Showing success message.');
+                        sentEmailAddressEl.textContent = email;
+                        modalStep1.style.display = 'none';
+                        modalStep2.style.display = 'block';
+                    } else {
+                        console.error('Server response was not ok.', response.status, response.statusText);
+                        const errorBody = await response.text();
+                        console.error('Error body:', errorBody);
+                        throw new Error('Server response was not ok.');
+                    }
+                } catch (error) {
+                    console.error('Failed to send referral email:', error);
+                    modalStep1.style.display = 'none';
+                    modalError.style.display = 'block';
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Verstuur deellink';
+                }
+            });
+        }
     </script>
 
 </body>
 </html>
+```
+
+### Next Steps: How to Debug
+
+1.  **Deploy this updated `index.html` file** to your Netlify site.
+2.  **Open the Developer Console** on your live website:
+    * **Chrome/Edge:** Right-click anywhere on the page, select "Inspect," and then click the "Console" tab.
+    * **Firefox:** Right-click, select "Inspect," and click the "Console" tab.
+    * **Safari:** Go to Safari > Preferences > Advanced and check "Show Develop menu in menu bar." Then right-click on your page and select "Inspect Element" and go to the "Console" tab.
+3.  **Try to submit the form again.**
+
+Now, when you submit the form, you should see messages appearing in the console. Please let me know what you see! This will tell us exactly where the process is faili
